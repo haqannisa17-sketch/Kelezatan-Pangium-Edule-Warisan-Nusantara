@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelezatan Pangium Edule Warisan Nusantara | Rawon Jawa Timur</title>
+    
+    <style>
+        /* Dasar */
+        body { font-family: 'Georgia', serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f5f0e6; color: #383838; }
+        header { background-color: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center; border-bottom: 8px solid #cc8800; }
+        header h1 { font-family: 'Times New Roman', serif; font-size: 3.2em; margin-bottom: 5px; font-weight: 700; }
+        header p { font-style: italic; color: #ccc; }
+
+        /* Navigasi */
+        nav { text-align: center; background-color: #333333; padding: 12px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); }
+        nav a { color: #fff; text-decoration: none; padding: 10px 25px; margin: 0 5px; transition: background-color 0.3s, color 0.3s; border-radius: 5px; font-weight: 500; text-transform: uppercase; }
+        nav a:hover { background-color: #cc8800; color: #1a1a1a; }
+
+        /* Konten Utama */
+        main { padding: 20px; max-width: 1100px; margin: auto; }
+        .content-section { background-color: #ffffff; padding: 40px; margin: 30px 0; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); }
+        .content-section h2 { color: #000; border-bottom: 3px solid #cc8800; padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }
+        
+        /* Gambar & Highlight */
+        .hero { text-align: center; }
+        .hero img { max-width: 90%; height: auto; border-radius: 10px; margin-top: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); }
+        .highlight { font-weight: bold; color: #800000; }
+
+        /* Sejarah dan Filosofi */
+        .story-container { display: flex; gap: 30px; align-items: flex-start; }
+        .story-container p { flex: 2; }
+        .filosofi-box { flex: 1; background-color: #f7f7f7; padding: 20px; border-radius: 8px; border-left: 5px solid #cc8800; }
+        .filosofi-box h4 { margin-top: 0; color: #cc8800; }
+        
+        /* Kluwek Explorer (Interactive) */
+        .kluwek-container { text-align: center; position: relative; padding: 20px 0; }
+        #kluwek-img { width: 160px; height: 160px; cursor: pointer; border-radius: 50%; object-fit: cover; border: 4px solid #cc8800; transition: transform 0.3s; }
+        #kluwek-img:hover { transform: scale(1.1); }
+        
+        /* Pop-up Kluwek */
+        #kluwek-info {
+            transition: opacity 0.3s ease-in-out; opacity: 0;
+            position: absolute; top: 190px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; z-index: 10;
+            background-color: #fffff0; border: 2px solid #cc8800;
+            padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+        #kluwek-info.hidden { display: none; }
+        .warning { color: #d9534f; font-weight: bold; margin-top: 10px; }
+
+        /* Resep & Kalkulator */
+        .resep-flex { display: flex; gap: 30px; }
+        .cara-memasak, .kalkulator-box { flex: 1; }
+        .kalkulator-box { background-color: #fff9e6; padding: 25px; border-radius: 8px; border: 1px dashed #cc8800; }
+        #porsi-input { width: 80px; padding: 10px; margin: 10px 0 20px 0; border: 2px solid #383838; border-radius: 5px; font-size: 1.2em; text-align: center; }
+        #resep-result { list-style-type: none; padding: 0; }
+        #resep-result li { background-color: #ffffff; margin-bottom: 8px; padding: 10px; border-left: 5px solid #000; font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+
+        /* Rawon Legenda */
+        .legenda-container { display: flex; gap: 30px; margin-top: 20px; }
+        .rawon-card { flex: 1; text-align: center; border: 1px solid #ddd; padding: 25px; border-radius: 8px; transition: transform 0.3s; background-color: #f9f9f9; }
+        .rawon-card img { max-width: 100%; height: auto; object-fit: cover; border-radius: 5px; margin-bottom: 15px; }
+        .tempe-box { background-color: #e6ffe6; padding: 15px; border-radius: 5px; margin-top: 10px; text-align: left; }
+
+        /* Footer */
+        footer { text-align: center; padding: 20px; background-color: #1a1a1a; color: #fff; margin-top: 40px; }
+
+        /* Responsif */
+        @media (max-width: 800px) {
+            .story-container, .resep-flex, .legenda-container { flex-direction: column; }
+            header h1 { font-size: 2.5em; }
+            .content-section { padding: 25px 15px; }
+            #kluwek-info { position: static; transform: none; width: auto; margin-top: 20px; }
+        }
+    </style/* --- Perubahan pada Navigasi Dasar --- */
+nav {
+    /* Hapus text-align: center; karena kita menggunakan flexbox pada nav-list */
+    background-color: #333333;
+    padding: 0; /* Ubah padding agar list bisa diatur */
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Mengatur item navigasi horizontal */
+    justify-content: center;
+}
+
+.nav-list li {
+    position: relative; /* Penting untuk posisi dropdown */
+}
+
+nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px; /* Atur padding baru */
+    transition: background-color 0.3s;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+nav a:hover, .dropbtn:hover { 
+    background-color: #cc8800; 
+    color: #1a1a1a; 
+}
+
+
+/* --- Dropdown Styling --- */
+.dropdown-content {
+    display: none; /* Default: Sembunyikan konten dropdown */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 240px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 101; /* Pastikan di atas konten lain */
+    left: 0; /* Posisikan ke kiri parent li */
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    text-transform: none; /* Nonaktifkan uppercase pada sub-menu */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #cc8800;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Tampilkan dropdown saat hover pada parent li */
+}>
+
+</head>
+<body>
+    <header>
+        <h1>🥩 Kelezatan *Pangium Edule* Warisan Nusantara 🖤</h1>
+        <p>Menggali Kearifan Lokal dalam Setiap Sajian Rawon Jawa Timur</p>
+    </header>
+
+    <nav>
+        <ul class="nav-list">
+            <li><a href="#sejarah">Sejarah & Filosofi</a></li>
+            <li><a href="#kluwek">Inti Rasa</a></li>
+            <li><a href="#resep">Kulineran</a></li>
+            <li class="dropdown">
+                <a href="#legenda" class="dropbtn">Rumah Makan Legendaris ▼</a>
+                <div class="dropdown-content">
+                    <a href="#rawon-setan">Rawon Setan (Surabaya)</a>
+                    <a href="#rawon-nguling">Rawon Nguling (Probolinggo)</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="galeri" class="hero content-section">
+            <h2>Rawon: Simbol Kekayaan Budaya Rasa</h2>
+            <img src="c:\Users\ANNISA HAQ\Documents\kokurikuler\rwn toge" alt="Rawon Lengkap Disajikan dengan Tauge dan Telur Asin" style="max-width: 100%;">
+            <p style="margin-top: 15px;">Rawon disajikan dengan sempurna, disandingkan dengan **cambah (tauge)** dan nasi hangat—sebuah keharmonisan rasa yang pekat dan gurih.</p>
+        </section>
+
+        <section id="sejarah" class="content-section">
+            <h2>📜 Jejak Sejarah dan Filosofi Rawon</h2>
+            <div class="story-container">
+                <p>Rawon bukan sekadar sup daging, melainkan warisan kuliner yang sudah teruji waktu. Berasal dari Jawa Timur, Rawon dipercaya telah ada sejak masa lalu, bahkan sering disebut-sebut dalam manuskrip-manuskrip Jawa kuno, menjadikannya salah satu hidangan tertua di Nusantara. Rawon adalah perpaduan antara kemewahan daging sapi dan bumbu rempah lokal yang melimpah.</p>
+                
+                <div class="filosofi-box">
+                    <h4>Makna Warna Hitam</h4>
+                    <p>Warna hitam pekat Rawon dari kluwek memiliki filosofi mendalam. Warna ini melambangkan <span class="highlight">kesuburan tanah Jawa</span> (tanah hitam yang makmur) dan sering dimaknai sebagai simbol kekuatan, keanggunan, dan kekayaan rempah Nusantara.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="kluwek" class="content-section">
+            <h2>⚫ Inti Kearifan Lokal: *Pangium Edule* (Kluwek)</h2>
+            <p style="text-align: center;">Kluwek adalah jiwa Rawon. Klik gambar biji kluwek di bawah untuk mengetahui rahasia pengolahannya!</p>
+            <div class="kluwek-container">
+                <img id="kluwek-img" src="c:\Users\ANNISA HAQ\Documents\kokurikuler\kluwek 1.jpg" alt="Biji Kluwek Utuh" onclick="showKluwekInfo()">
+                
+                <div id="kluwek-info" class="info-box hidden">
+                    <h3>Kearifan Pengolahan Kluwek</h3>
+                    <p>Kluwek bukan hanya bumbu, tetapi hasil dari proses **fermentasi kearifan lokal**. Tanpa proses ini, biji mentah bersifat <span class="highlight">beracun</span> karena mengandung sianida!</p>
+                    <p class="warning">Teknik perebusan dan penguburan (fermentasi) biji inilah yang menghilangkan racun, mengubahnya menjadi bumbu hitam yang aman, harum, dan memberikan rasa unik asam-gurih-pedas pada Rawon.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="resep" class="content-section">
+            <h2>🔪 Dapur Rawon: Bahan, Cara Masak, dan Kalkulator</h2>
+            <div class="resep-flex">
+                
+                <div class="kalkulator-box">
+                    <h3>Kalkulator Resep Otomatis</h3>
+                    <p>Sesuaikan jumlah bahan Rawon sesuai dengan kebutuhan porsi Anda.</p>
+                    <label for="porsi-input">Jumlah Porsi yang Ingin Dibuat:</label>
+                    <input type="number" id="porsi-input" value="4" min="1" required>
+                    
+                    <h4>Kebutuhan Bahan Utama:</h4>
+                    <ul id="resep-result">
+                        </ul>
+                    <p style="font-size: 0.8em; margin-top: 15px;">*Resep dasar untuk 4 porsi. Pembulatan ke atas untuk biji/butir.</p>
+                </div>
+                
+                <div class="cara-memasak">
+                    <h3>Bahan dan Proses Memasak</h3>
+                    <p>Bahan utama Rawon adalah **Daging Sapi (sandung lamur/kikil)**, dan **Bumbu Halus** (bawang merah/putih, kunyit, ketumbar, dan tentu saja kluwek).</p>
+                    <ol>
+                        <li>Rebus daging hingga empuk. Sisihkan kaldu.</li>
+                        <li>Haluskan semua bumbu rempah, termasuk isi kluwek.</li>
+                        <li>Tumis bumbu halus hingga harum dan matang sempurna.</li>
+                        <li>Masukkan bumbu tumis ke dalam kaldu daging. Masak hingga mendidih dan kuah menghitam.</li>
+                        <li>Sajikan Rawon panas dengan lauk pendamping khas (telur asin, tauge, sambal).</li>
+                    </ol>
+                    <img src="c:\Users\ANNISA HAQ\Documents\kokurikuler\rwn sby" alt="Daging rebus empuk dan bumbu halus rawon" style="max-width: 100%; border-radius: 5px;">
+                </div>
+            </div>
+        </section>
+
+        <section id="legenda" class="content-section">
+            <h2>⭐ Duel Legendaris: Rawon Setan vs. Rawon Nguling</h2>
+            <p style="font-size: 1.1em; text-align: center; margin-bottom: 30px;">Setiap daerah di Jawa Timur memiliki ciri khas Rawonnya. Berikut adalah dua legenda yang wajib diketahui:</p>
+
+            <div class="legenda-container">
+                <div class="rawon-card" id="rawon-setan">
+                    <h3>Rawon Setan (Surabaya)</h3>
+                    <img src="c:\Users\ANNISA HAQ\Documents\kokurikuler\rwn setan" alt="Rawon Setan Surabaya">
+                    <p>Rawon Setan adalah ikon kuliner malam Surabaya. Ciri khasnya adalah **kuah yang sangat pekat, gurih mendalam, dan kaya rempah**, dengan potongan daging yang tebal dan empuk.</p>
+                    
+                    <div style="padding: 10px; background-color: #fcebeb; border-radius: 5px;">
+                        <p class="highlight" style="font-weight: bold; margin: 0; color: #cc8800;">Asal Nama "Setan"</p>
+                        <p style="font-size: 0.95em; margin-top: 5px;">Nama "Setan" bukan merujuk pada rasa pedas, melainkan karena dulu rumah makan ini **mulai buka di tengah malam (pukul 10 malam ke atas)**. Seringnya, makan Rawon di waktu tak lazim ini terasa seperti dikejar "setan" kelaparan!</p>
+                    </div>
+                    </div>
+
+                <div class="rawon-card" id="rawon-nguling">
+
+                    <div class="rawon-card" id="rawon-nguling">
+                    <h3>Rawon Nguling (Probolinggo)</h3>
+                    <img src="c:\Users\ANNISA HAQ\Documents\kokurikuler\nguling" alt="Rawon Nguling Probolinggo">
+                    
+                    <p>Berbeda dari Surabaya, Rawon Nguling (berasal dari daerah Nguling, Probolinggo) memiliki karakteristik kuah yang **lebih ringan, bening, dan cenderung memiliki sentuhan rasa manis** yang khas Jawa Timuran.</p>
+                    
+                    <div class="tempe-box">
+                        <p class="highlight" style="font-weight: bold; color: #383838; margin: 0;">Kearifan Topping Tempe</p>
+                        <p style="font-size: 0.95em; margin-top: 5px;">Kekhasan Rawon Nguling adalah penyajiannya yang **selalu disertai irisan Tempe Goreng** di dalam kuah. Topping tempe ini bukan hanya penambah rasa gurih dan tekstur, tetapi juga wujud <span class="highlight">kearifan lokal</span> untuk membuat hidangan lebih mengenyangkan dan merakyat.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="rawon-maps-duo">
+                <h3 style="text-align: center; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px;">Lihat Lokasi Legendaris di Peta</h3>
+                
+                <div class="map-flex-container">
+                    
+                    <div class="map-card">
+                        <h4>Lokasi Rawon Setan (Surabaya)</h4>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8386196031965!2d112.7326024735724!3d-7.259200292747515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9675f5ab153%3A0xd7718efb5cb01015!2sRawon%20Setan%20-%20Embong%20Malang!5e0!3m2!1sid!2sid!4v1765336377200!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+                          </iframe>  
+                            width="100%" height="100" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" loading="lazy">
+                    </div>
+
+                    <div class="map-card">
+                        <h4>Lokasi Rawon Nguling (Probolinggo)</h4>
+                        <iframe 
+                           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.676631071339!2d113.07946457357853!3d-7.717802792300158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7b6ba2d0be4b3%3A0x7b81687fc42803de!2sRawon%20Nguling!5e0!3m2!1sid!2sid!4v1765336417456!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+                        </iframe>
+                           width="100%" height="100" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" loading="lazy">
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 0.9em; color: #666; margin-top: 10px;">(Pastikan Anda mengganti LINK IFRAME di atas dengan kode embed dari Google Maps asli).</p>
+            </div>
+            </section>
+
+        <section id="kearifan" class="content-section" style="text-align: center;">
+            <h2>⭐ Rawon: Lebih dari Sekadar Makanan</h2>
+            <p>Rawon adalah representasi <span class="highlight">kearifan lokal</span> Jawa Timur. Mulai dari pengolahan kluwek yang beracun menjadi bumbu lezat, pemilihan daging yang melambangkan kemakmuran, hingga penyajiannya yang selalu ditemani tauge sebagai simbol kesuburan dan harapan baru.</p>
+            <p style="font-size: 1.1em; margin-top: 20px;">**Rawon adalah hidangan yang menceritakan sejarah, sains, dan filosofi kehidupan Jawa.**</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Kelezatan Pangium Edule Warisan Nusantara - Proyek Kearifan Lokal KELOMPOK 1</p>
+    </footer>
+
+    <script>
+        
+        // --- 1. Kluwek Explorer Function ---
+        function showKluwekInfo() {
+            const infoBox = document.getElementById('kluwek-info');
+            
+            if (infoBox.classList.contains('hidden')) {
+                infoBox.classList.remove('hidden');
+                setTimeout(() => infoBox.style.opacity = '1', 10);
+            } else {
+                infoBox.style.opacity = '0';
+                setTimeout(() => infoBox.classList.add('hidden'), 300);
+            }
+        }
+
+
+        // --- 2. Kalkulator Resep Data & Function ---
+
+        // Resep Dasar (Base Recipe) untuk 4 Porsi
+        const baseRecipe = {
+            'Daging Sapi (Potongan)': 500, // gram
+            'Kluwek (Isi)': 4, // biji
+            'Bawang Merah': 8, // butir
+            'Bawang Putih': 5, // butir
+            'Kunyit': 2, // cm
+            'Air/Kaldu': 1000 // ml
+        };
+
+        const units = {
+            'Daging Sapi (Potongan)': 'gram',
+            'Kluwek (Isi)': 'biji',
+            'Bawang Merah': 'butir',
+            'Bawang Putih': 'butir',
+            'Kunyit': 'cm',
+            'Air/Kaldu': 'ml'
+        };
+
+        const basePorsi = 4;
+
+        function calculateRecipe() {
+            const porsiInput = document.getElementById('porsi-input');
+            const targetPorsi = parseInt(porsiInput.value);
+            const resultList = document.getElementById('resep-result');
+
+            resultList.innerHTML = ''; 
+
+            if (isNaN(targetPorsi) || targetPorsi <= 0) {
+                resultList.innerHTML = '<li>Masukkan jumlah porsi yang valid (minimal 1).</li>';
+                return;
+            }
+
+            const multiplier = targetPorsi / basePorsi;
+
+            for (const [bahan, jumlahDasar] of Object.entries(baseRecipe)) {
+                const jumlahBaru = jumlahDasar * multiplier;
+                const listItem = document.createElement('li');
+                
+                let formattedJumlah;
+                
+                if (bahan === 'Bawang Merah' || bahan === 'Bawang Putih' || bahan === 'Kluwek (Isi)') {
+                    formattedJumlah = Math.ceil(jumlahBaru); 
+                } else {
+                    formattedJumlah = Math.round(jumlahBaru);
+                }
+
+                listItem.textContent = `${bahan}: ${formattedJumlah} ${units[bahan]}`;
+                resultList.appendChild(listItem);
+            }
+        }
+
+        // --- Inisialisasi Program ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hitung resep saat halaman dimuat (default 4 porsi)
+            calculateRecipe(); 
+            
+            // Tambahkan event listener agar perhitungan berjalan otomatis
+            const porsiInput = document.getElementById('porsi-input');
+            if (porsiInput) {
+                porsiInput.addEventListener('input', calculateRecipe);
+            }
+        });
+    </script>
+</body>
+</html>
